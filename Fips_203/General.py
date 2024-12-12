@@ -44,12 +44,12 @@ def BytesToBits(input): #Converts array of bytes to bits and stores them individ
     return bytesArray
 
 
-def ByteEncode(input):
+def ByteEncode(input): #TODO Need to add d
     byteArray = []
     if(len(input) == 256):
         for temp in input:
             for y in range(12):
-                byteArray.append(temp % 2) # Gets the first bit in the 
+                byteArray.append(temp % 2) # Gets the first bit in the input
                 temp >>= 1 #Shifts bit by 1
         
         byteArray = BitsToBytes(byteArray)    
@@ -60,11 +60,8 @@ def ByteEncode(input):
     return byteArray
 
 
-def ByteDecode(input):
+def ByteDecode(input): #TODO Need to add d variable.
     bitsArray = BytesToBits(input)
-    print(bitsArray)
-    print(len(input))
-    print(len(bitsArray))
     byteArray = []
     if (len(bitsArray) == 256):
         for x in range(0, len(bitsArray), 12):
@@ -99,7 +96,7 @@ def SampleNTT(input):
 
     return output    
 
-def SamplePolyCBD(input):
+def SamplePolyCBD(input, length):
     bits = BytesToBits(input)
     output = []
     print(bits)
@@ -107,10 +104,10 @@ def SamplePolyCBD(input):
         temp1 = 0
         temp2 = 0
         for y in range(eta-1):
-            temp1 += bits[2 * x * eta + y]
+            temp1 += bits[2 * x * length + y]
             print(temp1)
         for y in range(eta-1):
-            temp2 += bits[2 * x * eta + eta + y]
+            temp2 += bits[2 * x * length + length + y]
             print(temp2)
 
         output.append((temp1-temp2) % q)
